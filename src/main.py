@@ -1,11 +1,14 @@
 import asyncio
-import ui.ui as ui
+from ui.MainWindow import MainWindow;
 
 # Ponto de entrada da aplicação, apenas realizando inicializações e chamando o ponto de entrada da interface.
-async def main():
+def main():
     print('Initializing knee-cam...')
-    
-    asyncio.create_task(ui.render())
+
+    gui = MainWindow()
+
+    gui.protocol("WM_DELETE_WINDOW", gui.destroy)
+    gui.mainloop()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

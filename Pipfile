@@ -8,8 +8,12 @@ dev = 'python main.py'
 
 [packages]
 dearpygui = "*"
+pillow = "*"
+opencv-python = "*"
+numpy = "*"
 
 [dev-packages]
+autopep8 = "*"
 
 [requires]
 python_version = "3.8"

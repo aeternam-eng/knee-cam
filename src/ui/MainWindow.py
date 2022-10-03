@@ -1,0 +1,35 @@
+import tkinter as tk
+
+from ui.components.ImageViewer import ImageViewer
+from ui.components.FileSelectorDialog import FileSelectorDialog
+from ui.components.FileMenu import FileMenu
+from ui.components.RoiMenu import RoiMenu
+
+class MainWindow(tk.Tk):
+    def __init__(self) -> None:
+        super().__init__()
+
+        self._viewer: ImageViewer = None
+
+        self.geometry('800x600')
+        self.title('Knee Cam')
+
+        app_menu = tk.Menu(self)
+        app_menu.add_cascade(label="File", menu=FileMenu(master=app_menu, on_open_image=lambda: FileSelectorDialog(on_select=self._on_image_selected), on_find_in_image=lambda: FileSelectorDialog(on_select=self._on_find_in_image)))
+        app_menu.add_cascade(label="ROI", menu=RoiMenu(master=app_menu, on_begin_roi_selection=lambda: self._viewer.begin_roi_selection() if self._viewer is not None else tk.messagebox.showerror('Error!', "Select an image first")))
+
+        self.config(menu=app_menu)
+
+    def _on_find_in_image(self, path):
+        if(self._viewer is None):
+            tk.messagebox.showerror('Error!', "You must have an image open to find another in it")
+        else:
+            self._viewer.find_inside(path)
+
+    def _on_image_selected(self, path) -> None:
+        print(f"opened: {path}")
+
+        if(self._viewer is not None):
+            self._viewer.destroy()
+
+        self._viewer = ImageViewer(self, path=path)
