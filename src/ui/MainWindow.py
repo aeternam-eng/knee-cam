@@ -5,6 +5,7 @@ from ui.components.FileSelectorDialog import FileSelectorDialog
 from ui.components.FileMenu import FileMenu
 from ui.components.RoiMenu import RoiMenu
 
+# Tela principal do aplicativo, sendo o ponto de entrada
 class MainWindow(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
@@ -20,12 +21,14 @@ class MainWindow(tk.Tk):
 
         self.config(menu=app_menu)
 
+    # Ao carregar uma imagem pelo menu de Arquivo para correlacionar duas imagens
     def _on_find_in_image(self, path):
         if(self._viewer is None):
             tk.messagebox.showerror('Error!', "You must have an image open to find another in it")
         else:
             self._viewer.find_inside(path)
 
+    # Ao selecionar uma imagem para abrir e visualizar
     def _on_image_selected(self, path) -> None:
         print(f"opened: {path}")
 

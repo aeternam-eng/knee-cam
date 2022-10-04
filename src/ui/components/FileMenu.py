@@ -1,5 +1,6 @@
 import tkinter as tk
 
+# Menu for file operations (opening image files)
 class FileMenu(tk.Menu):
     def __init__(self, master, on_open_image, on_find_in_image) -> tk.Menu:
         super().__init__(master, tearoff=False)

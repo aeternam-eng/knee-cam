@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 from tkinter import messagebox
 
+# Dialógo para que o usuário diga o nome de salvamento de um arquivo de imagem.
 class ImageSaverDialog:
     def __init__(self, image):
         root = tk.Tk()

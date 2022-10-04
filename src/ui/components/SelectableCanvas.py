@@ -1,5 +1,6 @@
 import tkinter as tk
 
+# Exibe uma imagem mas com a funcionalidade de desenhar uma Região de Interesse (ROI)
 class SelectableCanvas(tk.Canvas):
     def __init__(self, master, on_select):
         super().__init__(master, cursor='left_ptr')
@@ -9,6 +10,7 @@ class SelectableCanvas(tk.Canvas):
         self._endPoint = None
         self._selection = None
 
+    # Realiza a limpeza necessária ao desativar/finalizar o modo de seleção
     def _cleanup(self):
         self.bind("<ButtonPress-1>", lambda e: None)
         self.bind("<B1-Motion>", lambda e: None)
@@ -19,6 +21,7 @@ class SelectableCanvas(tk.Canvas):
         self.delete(self._selection)
         self.config(cursor='left_ptr')
 
+    # Converte as coordenadas de um evento para coordenadas locais do Canvas
     def _get_canvas_coordinates(self, event):
         return tuple((self.canvasx(event.x), self.canvasy(event.y)))
 
@@ -28,6 +31,7 @@ class SelectableCanvas(tk.Canvas):
         if(not self._selection):
             self._selection = self.create_rectangle(0, 0, 1, 1, outline='red')
 
+    # Atualiza a exibição do retângulo ao mover o mouse
     def _on_mouse_move(self, event):
         current_coordinates = self._get_canvas_coordinates(event)
         canvas_width, canvas_height = self.winfo_width(), self.winfo_height()
@@ -45,6 +49,7 @@ class SelectableCanvas(tk.Canvas):
         self._endPoint = current_coordinates
         self.coords(self._selection, self._startPoint[0], self._startPoint[1], self._endPoint[0], self._endPoint[1])
 
+    # Confirmação de que o retângulo foi selecionado ao soltar o mouse
     def _on_mouse_release(self, event):
         self._endPoint = self._get_canvas_coordinates(event)
 
@@ -53,6 +58,7 @@ class SelectableCanvas(tk.Canvas):
         
         self._cleanup()
 
+    # Permite a classes externas que iniciem uma seleção de ROI
     def begin_selection(self):
         self.bind("<ButtonPress-1>", self._on_mouse_press)
         self.bind("<B1-Motion>", self._on_mouse_move)
