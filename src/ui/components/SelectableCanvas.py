@@ -1,3 +1,7 @@
+# Hugo Brandão de Oliveira | 640727 | Engenharia de Computação | Coração Eucarístico
+# Gabriell Murta de Paula Nunes | 636042 | Engenharia de Computação | Coração Eucarístico
+# Joao Antônio Ferreira Neto | 640846 | Engenharia de Computação | Coração Eucarístico
+
 import tkinter as tk
 
 # Exibe uma imagem mas com a funcionalidade de desenhar uma Região de Interesse (ROI)
