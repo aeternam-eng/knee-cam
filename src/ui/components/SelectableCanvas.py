@@ -40,15 +40,15 @@ class SelectableCanvas(tk.Canvas):
         current_coordinates = self._get_canvas_coordinates(event)
         canvas_width, canvas_height = self.winfo_width(), self.winfo_height()
 
-        if event.x > 0.9 * canvas_width:
-            self.xview_scroll(1, 'units')
-        elif event.x < 0.1 * canvas_width:
-            self.xview_scroll(-1, 'units')
+        if event.x > 0.98 * canvas_width:
+            self.xview_scroll(0.1, 'units')
+        elif event.x < 0.01 * canvas_width:
+            self.xview_scroll(-0.1, 'units')
 
-        if event.y > 0.9 * canvas_height:
-            self.yview_scroll(1, 'units')
-        elif event.y < 0.1 * canvas_height:
-            self.yview_scroll(-1, 'units')
+        if event.y > 0.98 * canvas_height:
+            self.yview_scroll(0.1, 'units')
+        elif event.y < 0.01 * canvas_height:
+            self.yview_scroll(-0.1, 'units')
 
         self._endPoint = current_coordinates
         self.coords(self._selection, self._startPoint[0], self._startPoint[1], self._endPoint[0], self._endPoint[1])
