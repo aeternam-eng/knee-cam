@@ -51,7 +51,8 @@ class ImageViewer(tk.Frame):
         comparison_method = cv.TM_CCORR_NORMED
 
         template = cv.imread(path, cv.IMREAD_GRAYSCALE)
-        main_as_opencv = cv.cvtColor(np.asarray(self._loaded_image), cv.COLOR_BGR2GRAY)
+        template = cv.cvtColor(template, cv.IMREAD_GRAYSCALE)
+        main_as_opencv = cv.cvtColor(np.asarray(self._loaded_image), cv.IMREAD_GRAYSCALE)
 
         matches = cv.matchTemplate(main_as_opencv, template, comparison_method)
         _, _, _, local_maximum = cv.minMaxLoc(matches)
