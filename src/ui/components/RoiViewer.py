@@ -6,7 +6,7 @@ import tkinter as tk
 from PIL import ImageTk
 
 from ui.components.ImageSaverDialog import ImageSaverDialog
-from ui.components.SaveFileMenu import SaveFileMenu
+from ui.components.menus.SaveFileMenu import SaveFileMenu
 
 # Tela desacoplada para que seja possível revisar o ROI selecionado e salvá-lo pelo menu
 class RoiViewer(tk.Toplevel):

@@ -4,12 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [scripts]
-dev = 'python main.py'
+dev = 'python src/main.py'
+model = 'python src/models/main.py'
+svm = 'python src/models/svm.py'
+train_svm = 'python src/models/train_svm.py'
 
 [packages]
-pillow = "*"
 opencv-python = "*"
+tensorflow = "*"
+pillow = "*"
 numpy = "*"
+matplotlib = "*"
+pandas = "*"
 
 [dev-packages]
 autopep8 = "*"

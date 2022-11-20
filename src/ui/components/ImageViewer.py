@@ -10,6 +10,7 @@ from PIL import Image, ImageTk
 
 from ui.components.RoiViewer import RoiViewer
 from ui.components.SelectableCanvas import SelectableCanvas
+from models.helpers import show_image_histogram
 
 # Carrega, e exibe a imagem
 class ImageViewer(tk.Frame):
@@ -67,3 +68,7 @@ class ImageViewer(tk.Frame):
     # Interface que permite classes externas iniciarem uma seleção de ROI
     def begin_roi_selection(self):
         self._image_canvas.begin_selection()
+
+    def show_histogram(self):
+        main_image_as_opencv = cv.cvtColor(np.asarray(self._loaded_image), cv.IMREAD_GRAYSCALE)
+        show_image_histogram(main_image_as_opencv)
