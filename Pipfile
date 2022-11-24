@@ -5,9 +5,9 @@ name = "pypi"
 
 [scripts]
 dev = 'python src/main.py'
-model = 'python src/models/main.py'
-svm = 'python src/models/svm.py'
-train_svm = 'python src/models/train_svm.py'
+# model = 'python src/models/main.py'
+# svm = 'python src/models/svm.py'
+# train_svm = 'python src/models/train_svm.py'
 
 [packages]
 opencv-python = "*"
@@ -16,6 +16,8 @@ pillow = "*"
 numpy = "*"
 matplotlib = "*"
 pandas = "*"
+scikit-learn= "*"
+jupyter = "*"
 
 [dev-packages]
 autopep8 = "*"

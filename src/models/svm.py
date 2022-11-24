@@ -12,12 +12,12 @@ def main():
 
     for label in labels:
         actualLabel = 0 if label < 2 else 1
-        testImages = helpers.get_all_images_from_directory(Path(constants.DATASET_DIR, 'train', str(label)))
+        testImages = helpers.get_and_enrich_all_images_from_directory(Path(constants.DATASET_DIR, 'test', str(label)))
 
         total = len(testImages)
         successes = 0
         for testImage in testImages:
-            preparedImage = helpers.calculate_image_histogram(testImage)
+            preparedImage = helpers.calculateGaborFilter(testImage)
             response = model.predict(np.float32([preparedImage]))
             predictedLabel = response[1][0]
 

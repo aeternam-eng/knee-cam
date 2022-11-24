@@ -8,9 +8,10 @@ import cv2 as cv
 import numpy as np
 from PIL import Image, ImageTk
 
+from models import models
+from shared.constants import ClassifierTypes
 from ui.components.RoiViewer import RoiViewer
 from ui.components.SelectableCanvas import SelectableCanvas
-from models.helpers import show_image_histogram
 
 # Carrega, e exibe a imagem
 class ImageViewer(tk.Frame):
@@ -65,10 +66,18 @@ class ImageViewer(tk.Frame):
 
         self._image_canvas.create_rectangle(top_left[0], top_left[1], bottom_right[0], bottom_right[1], outline='red')
 
+    def begin_classification(self, type):
+        main_as_opencv = cv.cvtColor(np.asarray(self._loaded_image), cv.IMREAD_GRAYSCALE)
+        
+        if type is ClassifierTypes.BinaryCnn:
+            models.run_binarycnn()
+        elif type is ClassifierTypes.BinaryShallow:
+            models.run_binaryshallow()
+        elif type is ClassifierTypes.MulticlassCnn:
+            models.run_multiclasscnn()
+        elif type is ClassifierTypes.MulticlassShallow:
+            models.run_multiclassshallow()
+
     # Interface que permite classes externas iniciarem uma seleção de ROI
     def begin_roi_selection(self):
         self._image_canvas.begin_selection()
-
-    def show_histogram(self):
-        main_image_as_opencv = cv.cvtColor(np.asarray(self._loaded_image), cv.IMREAD_GRAYSCALE)
-        show_image_histogram(main_image_as_opencv)
