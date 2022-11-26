@@ -76,5 +76,5 @@ Assim, será exibida a ROI sobreposta como um retângulo sobre a imagem principa
    ![](.docs/2022-10-06-22-50-03.png)
 
 # Modelos CNNs
-Os modelos prontos das CNNs estão no seguinte link:  ![Modelos](https://drive.google.com/drive/folders/1X6X4ciYiwmx4Vof2kJQJXqHykD4IjeB0?usp=share_link)
+Os modelos prontos das CNNs estão no seguinte link: [Modelo](https://drive.google.com/drive/folders/1X6X4ciYiwmx4Vof2kJQJXqHykD4IjeB0?usp=share_link).
 Por ser muito grande não foi possivel armazer no GIT o modelo.
