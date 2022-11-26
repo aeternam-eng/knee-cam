@@ -12,8 +12,6 @@ def fill_holes(image):
 
     holes_filled = des.copy()
 
-    cv2.imshow('holes filled', holes_filled)
-
     return holes_filled
 
 def blur_image(image):
@@ -32,10 +30,9 @@ def apply_laplacian_filter(image):
 
 def filter_image(image):
     filtered = image.copy()
-    filtered = blur_image(filtered)
-    # filtered = cv2.equalizeHist(filtered)
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(10,20))
-    filtered = clahe.apply(filtered)
+    # filtered = blur_image(filtered)
+    # clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(10,20))
+    # filtered = clahe.apply(filtered)
 
     return np.uint8(filtered)
 
@@ -49,15 +46,13 @@ def morph_image(image):
     morphed = image.copy()
     morphed = cv2.morphologyEx(morphed, cv2.MORPH_CLOSE,kernel, iterations=1)
     morphed = cv2.erode(morphed, kernel, iterations=2)
-    cv2.imshow('morph1', morphed)
+    
 
     return morphed
 
 def threshold_image(image):
     thresholded = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 245, 3)
-    # _, thresholded = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-
-    cv2.imshow('thresholded', np.array(thresholded))
+    # _, thresholded = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)    
 
     return thresholded
 
@@ -75,14 +70,9 @@ def watershed_image(image, thresholdedImage):
     unknown = cv2.subtract(sure_background, sure_foreground)
 
     ret, markers = cv2.connectedComponents(sure_foreground)
-    cv2.imshow('markers', np.uint8(markers))
-
+    
     markers = markers + 1
     markers[unknown == 255] = 0
-
-    cv2.imshow('sure bg', sure_background)
-    cv2.imshow('distancetransform', dist)
-    cv2.imshow('sure_fg', sure_foreground)
 
     markers = cv2.watershed(outputImage, markers)
     outputImage[markers == -1] = [0, 0, 255]
@@ -107,8 +97,6 @@ def calculate_image_histogram(image):
     return cv2.calcHist([image], [0], None, [256], [0, 256])
 
 def process_image(image):
-    cv2.imshow('original', image)
-
     processed = image.copy()
     processed = filter_image(processed)
     moments = calculate_image_moments(processed)
@@ -131,7 +119,5 @@ def process_image(image):
     processed = watershed_image(processed, processed)
 
     out = addToStack(out, processed)
-
-    cv2.imshow('final', out)
 
     return processed

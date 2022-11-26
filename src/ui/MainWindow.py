@@ -23,7 +23,6 @@ class MainWindow(tk.Tk):
         app_menu = tk.Menu(self)
         app_menu.add_cascade(label="File", menu=FileMenu(master=app_menu, on_open_image=lambda: FileSelectorDialog(on_select=self._on_image_selected), on_find_in_image=lambda: FileSelectorDialog(on_select=self._on_find_in_image)))
         app_menu.add_cascade(label="ROI", menu=RoiMenu(master=app_menu, on_begin_roi_selection=lambda: self._viewer.begin_roi_selection() if self._viewer is not None else tk.messagebox.showerror('Error!', "Select an image first")))
-        # app_menu.add_cascade(label="Histogram", menu=HistogramMenu(master=app_menu, on_show_histogram=lambda: self._viewer.show_histogram() if self._viewer is not None else tk.messagebox.showerror('Error!', "Select an image first")))
         app_menu.add_cascade(label="KL Classification", menu=KLClassificationMenu(master=app_menu, on_begin_classification=lambda type: self._viewer.begin_classification(type) if self._viewer is not None else tk.messagebox.showerror('Error!', "Select an image first")))
 
         self.config(menu=app_menu)

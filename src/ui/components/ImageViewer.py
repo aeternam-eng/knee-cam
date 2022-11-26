@@ -2,6 +2,7 @@
 # Gabriell Murta de Paula Nunes | 636042 | Engenharia de Computação | Coração Eucarístico
 # Joao Antônio Ferreira Neto | 640846 | Engenharia de Computação | Coração Eucarístico
 
+import time
 import operator
 import tkinter as tk
 import cv2 as cv
@@ -67,16 +68,26 @@ class ImageViewer(tk.Frame):
         self._image_canvas.create_rectangle(top_left[0], top_left[1], bottom_right[0], bottom_right[1], outline='red')
 
     def begin_classification(self, type):
+        print(f'Starting classification with {type}')
+
+        start_time = time.perf_counter()
+
         main_as_opencv = cv.cvtColor(np.asarray(self._loaded_image), cv.IMREAD_GRAYSCALE)
+        main_as_opencv = main_as_opencv.astype(np.uint8)
+        main_as_opencv = np.array(cv.cvtColor(main_as_opencv, cv.COLOR_BGR2GRAY))
         
         if type is ClassifierTypes.BinaryCnn:
-            models.run_binarycnn()
+            main_as_opencv = np.array(cv.cvtColor(main_as_opencv, cv.COLOR_GRAY2BGR))
+            result = models.run_binarycnn(main_as_opencv)
         elif type is ClassifierTypes.BinaryShallow:
-            models.run_binaryshallow()
+            result = models.run_binaryshallow(main_as_opencv)
         elif type is ClassifierTypes.MulticlassCnn:
-            models.run_multiclasscnn()
+            main_as_opencv = np.array(cv.cvtColor(main_as_opencv, cv.COLOR_GRAY2BGR))
+            result = models.run_multiclasscnn(main_as_opencv)
         elif type is ClassifierTypes.MulticlassShallow:
-            models.run_multiclassshallow()
+            result = models.run_multiclassshallow(main_as_opencv)
+
+        tk.messagebox.showinfo(f'Classification time: {time.perf_counter() - start_time}s', f'Classified as: {result}')
 
     # Interface que permite classes externas iniciarem uma seleção de ROI
     def begin_roi_selection(self):

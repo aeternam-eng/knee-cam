@@ -11,13 +11,13 @@ dev = 'python src/main.py'
 
 [packages]
 opencv-python = "*"
-tensorflow = "*"
 pillow = "*"
 numpy = "*"
 matplotlib = "*"
 pandas = "*"
 scikit-learn= "*"
 jupyter = "*"
+tensorflow = "==2.9.3"
 
 [dev-packages]
 autopep8 = "*"
