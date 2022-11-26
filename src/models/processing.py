@@ -1,3 +1,6 @@
+# Hugo Brandão de Oliveira | 640727 | Engenharia de Computação | Coração Eucarístico
+# Gabriell Murta de Paula Nunes | 636042 | Engenharia de Computação | Coração Eucarístico
+# Joao Antônio Ferreira Neto | 640846 | Engenharia de Computação | Coração Eucarístico
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt

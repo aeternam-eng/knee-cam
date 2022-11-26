@@ -16,15 +16,15 @@ from mlxtend.plotting import plot_confusion_matrix
 from sklearn.metrics import confusion_matrix , classification_report
 start_time = time.time()
 
-dataset_train_directory = r"./src/data/kneeKL224/train/"
-dataset_test_directory = r"./src/data/kneeKL224/val/"
-dataset_val_directory = r"./src/data/kneeKL224/test/"
+dataset_train_directory = r"./src/databinary/kneeKL224/train/"
+dataset_test_directory = r"./src/databinary/kneeKL224/val/"
+dataset_val_directory = r"./src/databinary/kneeKL224/test/"
 
 batch_size   = 25
 input_shape  = (224, 224, 3)
 random_state = 42
 alpha        = 1e-5
-epoch        = 100
+epoch        = 70
 image_size = [224,224]
 
 train_datagen = ImageDataGenerator(
@@ -92,12 +92,12 @@ model.add(layers.Flatten())
 model.add(layers.Dense(128, activation='relu'))
 model.add(layers.Dense(64, activation='relu'))
 model.add(layers.Dropout(0.5))
-model.add(layers.Dense(5, activation='softmax'))
+model.add(layers.Dense(2, activation='softmax'))
 
 model.summary()
 
 model.compile(loss='binary_crossentropy',
-                  optimizer=Adam(lr=0.0001),
+                  optimizer=Adam(lr=0.00005),
                   metrics=['acc'])
 
 STEP_SIZE_TRAIN=train_generator.n//train_generator.batch_size
@@ -109,7 +109,7 @@ history = model.fit(train_generator,
                       validation_steps=STEP_SIZE_VALID,
                       callbacks=callbacks,
                       epochs=epoch)
-model.save('./CNN/Info/CNN.h5')
+model.save('./CNNBinary/CNNBynary.h5')
 
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
@@ -117,7 +117,7 @@ plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
-plt.savefig("./CNN/Info/modelAccuracy.png")
+plt.savefig("./CNNBinary/Info/binaryModelAccuracy.png")
 plt.clf()
 
 plt.plot(history.history['loss'])
@@ -126,9 +126,8 @@ plt.title('model loss')
 plt.ylabel('loss')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
-plt.savefig("./CNN/Info/modelLoss.png")
+plt.savefig("./CNNBinary/Info//binaryModelLoss.png")
 plt.clf()
-
 
 STEP_SIZE_TEST = test_generator.n//test_generator.batch_size
 test_generator.reset()
@@ -139,12 +138,11 @@ pred = np.argmax(pred,axis = 1)
 y_true = test_generator.classes
 cm = confusion_matrix(y_true, pred)
 fig, ax = plot_confusion_matrix(conf_mat=cm ,  figsize=(5, 5))
-plt.savefig("./CNN/Info/confusionMatrix.png")
+plt.savefig("./CNNBinary/Info/binaryConfusionMatrix.png")
 plt.clf()
 
-with open("./CNN/Info/classificationReport.txt", "w") as file:
+with open("./CNNBinary/Info/binaryCNNClassificationReport.txt", "w") as file:
     file.write(classification_report(y_true,pred))
 
-with open("./CNN/Info/RunTime.txt", "w") as file:
+with open("./CNNBinary/Info/runTime.txt ", "w") as file:
     file.write("Time Execution " + str((time.time() - start_time)))
-
