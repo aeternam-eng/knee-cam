@@ -1,3 +1,7 @@
+# Hugo Brandão de Oliveira | 640727 | Engenharia de Computação | Coração Eucarístico
+# Gabriell Murta de Paula Nunes | 636042 | Engenharia de Computação | Coração Eucarístico
+# Joao Antônio Ferreira Neto | 640846 | Engenharia de Computação | Coração Eucarístico
+
 import numpy as np
 import cv2
 import time
@@ -10,9 +14,11 @@ from sklearn.metrics import classification_report, confusion_matrix
 import models.processing as processing
 import shared.constants as constants
 
+# Obter todas as imagens de um diretório
 def get_all_images_from_directory(directory):
     return [cv2.imread(str(image_path), cv2.IMREAD_GRAYSCALE) for image_path in Path(directory).glob("*")]
 
+# Obter e extender o dataset com imagens invertidas e equalizadas
 def get_and_enrich_all_images_from_directory(directory):
     allImages = get_all_images_from_directory(directory)
     # Flip horizontally for extending dataset
@@ -22,6 +28,7 @@ def get_and_enrich_all_images_from_directory(directory):
 
     return np.concatenate((allImages, histogramEqualized, mirrored))
 
+# calcula os descritores para o classificador raso
 def get_image_descriptors(image, use_moments=False):
     processed = image.copy()
 
@@ -38,10 +45,12 @@ def get_image_descriptors(image, use_moments=False):
     
     return processed
 
+# Obtém o descritor de uma imagem juntamente do label
 def describe_image(image, label, use_moments=False):
     descriptors = get_image_descriptors(image, use_moments)
     return (np.array(descriptors), label)
 
+# Descreve todas as imagens de uma classe
 def describe_images_in_class(images, label, use_moments=False):
     classDescriptors = joblib.Parallel(n_jobs=5)(joblib.delayed(describe_image)(image, label, use_moments) for image in images)
     classDescriptors = np.array(classDescriptors, dtype=object)
@@ -50,6 +59,7 @@ def describe_images_in_class(images, label, use_moments=False):
 
     return classDescriptors
 
+# Constrói os descritores de todas as imagens
 def build_image_descriptors(imagesByLabels, use_moments=False):
     labeledDescriptors = np.empty((0,2))
 
@@ -58,6 +68,7 @@ def build_image_descriptors(imagesByLabels, use_moments=False):
 
     return labeledDescriptors
 
+# Constrói o dataset
 def build_set(set_type, binary=False, with_extensions=False, use_moments=False):
     start_time = time.perf_counter()
 
@@ -80,12 +91,12 @@ def build_set(set_type, binary=False, with_extensions=False, use_moments=False):
 
     return labels, descriptors
 
+# Realiza escalonamento do dataset
 def scale_dataset(dataset):
     print('Scaling and fitting dataset...')
 
     scaler = StandardScaler()
     scaled = scaler.fit(dataset)
     scaled = scaler.transform(dataset)
-    # scaled = scale(scaled)
     
     return scaled

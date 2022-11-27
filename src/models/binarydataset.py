@@ -10,6 +10,7 @@ import helpers
 directories = [r"./src/data/kneeKL224/train/", r"./src/data/kneeKL224/val/", r"./src/data/kneeKL224/test/"]
 folder = ["train", "val", "test"]
 
+# Constrói o dataset binário para a CNN
 def build_train_set(path, folder):
     labels = np.array([0, 1, 2, 3, 4])
 

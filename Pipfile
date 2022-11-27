@@ -5,10 +5,6 @@ name = "pypi"
 
 [scripts]
 dev = 'python src/main.py'
-# model = 'python src/models/main.py'
-# svm = 'python src/models/svm.py'
-# train_svm = 'python src/models/train_svm.py'
-# new_data_set = 'python src/models/binarydataset.py'
 
 [packages]
 opencv-python = "*"

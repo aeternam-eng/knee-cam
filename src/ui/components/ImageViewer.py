@@ -67,6 +67,7 @@ class ImageViewer(tk.Frame):
 
         self._image_canvas.create_rectangle(top_left[0], top_left[1], bottom_right[0], bottom_right[1], outline='red')
 
+    # Realiza classificação em uma imagem individual
     def begin_classification(self, type):
         print(f'Starting classification with {type}')
 

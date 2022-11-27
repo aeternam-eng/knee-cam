@@ -9,6 +9,7 @@ from pathlib import Path
 from shared.helpers import *
 import shared.constants as constants
 
+# Carrega modelo raso
 def load_shallow_model(binary):
     if os.path.exists(constants.MODELS_DIR):
         return joblib.load(Path(constants.MODELS_DIR, 'shallow_bin.sav' if binary else 'shallow_multi.sav'))
@@ -16,6 +17,7 @@ def load_shallow_model(binary):
         print("Failure loading shallow model")
         return None
 
+# Carrega modelo CNN
 def load_cnn_model(binary):
     if os.path.exists(constants.MODELS_DIR):
         model = tf.keras.models.load_model(Path(constants.MODELS_DIR, 'CNNBynary.h5' if binary else 'CNN.h5'))
@@ -25,6 +27,7 @@ def load_cnn_model(binary):
         print("Failure loading cnn model")
         return None
 
+# Executa CNN binária para imagem individual
 def run_binarycnn(image):
     model = load_cnn_model(True)
 
@@ -33,6 +36,7 @@ def run_binarycnn(image):
 
     return 'Arthrosis' if result == 0 else 'Normal'
 
+# Executa CNN multiclasse para imagem individual
 def run_multiclasscnn(image):
     model = load_cnn_model(False)
     
@@ -40,6 +44,7 @@ def run_multiclasscnn(image):
 
     return np.argmax(result, axis=1)
 
+# Executa raso binário para imagem individual
 def run_binaryshallow(image):
     descriptors = get_image_descriptors(image, use_moments=True)
 
@@ -48,6 +53,7 @@ def run_binaryshallow(image):
 
     return 'Arthrosis' if result == 1 else 'Normal'
 
+# Executa raso multiclasse para imagem individual
 def run_multiclassshallow(image):
     descriptors = get_image_descriptors(image, use_moments=True)
 
@@ -56,6 +62,7 @@ def run_multiclassshallow(image):
 
     return result[0]
 
+# Avalia modelo raso no dataset fornecido
 def evaluate_shallow_model(model, dataset, dataset_answers, labels):
     start_time = time.perf_counter()
 
@@ -67,6 +74,7 @@ def evaluate_shallow_model(model, dataset, dataset_answers, labels):
         'confusion': confusion_matrix(dataset_answers, y_predict, labels=labels)
     }
 
+# Avalia modelo raso no dataset fornecido
 def evaluate_cnn_model(model, dataset, dataset_answers, labels):
     start_time = time.perf_counter()
     

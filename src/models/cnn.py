@@ -20,6 +20,7 @@ dataset_train_directory = r"./src/data/kneeKL224/train/"
 dataset_test_directory = r"./src/data/kneeKL224/val/"
 dataset_val_directory = r"./src/data/kneeKL224/test/"
 
+# Hiperparametros
 batch_size   = 25
 input_shape  = (224, 224, 3)
 random_state = 42
@@ -27,6 +28,7 @@ alpha        = 1e-5
 epoch        = 100
 image_size = [224,224]
 
+# Preparação e extensão dos datasets
 train_datagen = ImageDataGenerator(
     horizontal_flip=True,
     rotation_range=30,
@@ -62,11 +64,14 @@ validation_generator = val_datagen.flow_from_directory(
     shuffle = True
 )
 
+# Setup para salvar checkpoints do modelo
 filepath="transferlearning_weights.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
 
+# Ferramenta para melhorar o aprendizado alterando a taxa de aprendizado caso a acurácia chegue em um limite local
 lr_reduce = ReduceLROnPlateau(monitor='val_acc', factor=0.1, min_delta=alpha, patience=5, verbose=1)
 
+# Carrega o modelo VGG19 com pesos Imagenet
 callbacks = [checkpoint, lr_reduce]
 conv_base = VGG19(weights='imagenet', include_top=False, input_shape=input_shape)
 conv_base.summary()
@@ -74,6 +79,7 @@ conv_base.summary()
 conv_base.trainable = True
 set_trainable = False
 
+# Configura camadas treináveis
 for layer in conv_base.layers:
   if layer.name == 'block5_conv1':
     set_trainable = True
@@ -84,6 +90,7 @@ for layer in conv_base.layers:
     
 conv_base.summary()
 
+# Incrementa o modelo com mais camadas densas
 model = models.Sequential()
 model.add(conv_base)
 model.add(layers.GlobalAveragePooling2D())
@@ -96,6 +103,7 @@ model.add(layers.Dense(5, activation='softmax'))
 
 model.summary()
 
+# Treinamento
 model.compile(loss='binary_crossentropy',
                   optimizer=Adam(lr=0.0001),
                   metrics=['acc'])
@@ -111,6 +119,7 @@ history = model.fit(train_generator,
                       epochs=epoch)
 model.save('./CNN/Info/CNN.h5')
 
+# Salva métricas
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
 plt.title('model accuracy')
@@ -142,6 +151,7 @@ fig, ax = plot_confusion_matrix(conf_mat=cm ,  figsize=(5, 5))
 plt.savefig("./CNN/Info/confusionMatrix.png")
 plt.clf()
 
+# Salva os reports em arquivo
 with open("./CNN/Info/classificationReport.txt", "w") as file:
     file.write(classification_report(y_true,pred))
 

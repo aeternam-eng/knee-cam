@@ -32,14 +32,18 @@ Para realizar a instalação dos pacotes, rodar o comando:
 Após isso, para executar o programa, rodar os comandos (considerando que o diretório corrente seja o diretório principal do projeto, diretório que contém a pasta src):
 
 - python -m pipenv shell (habilita o ambiente virtual criado pelo pipenv)
-- python ./src/main.py
+- python ./src/main.py (ou o arquivo desejado)
 
 # Libs utilizadas
 
-Tkinter - Biblioteca de GUI nativa do Python, com exibições nativas para cada sistema.
-OpenCV - Para uso do algoritmo de correlação cruzada.
-PIL - Manipulação de arquivos de imagem.
-numpy - Manipulação de arrays (conversão de imagens do PIL em imagens do OpenCV).
+- Tkinter - Biblioteca de GUI nativa do Python, com exibições nativas para cada sistema.
+- OpenCV - Para uso do algoritmo de correlação cruzada.
+- PIL - Manipulação de arquivos de imagem.
+- numpy - Manipulação de arrays (conversão de imagens do PIL em imagens do OpenCV).
+- tensorflow - Treinamento da CNN
+- sklearn - Treinamento do classificador raso
+- jupyter - Facilitação dos scripts
+- matplotlib - Para exibir alguns gráficos durante o treinamento
 
 # Execução
 
@@ -53,28 +57,47 @@ Assim, será exibida a ROI sobreposta como um retângulo sobre a imagem principa
 
 # Tutorial em imagens
 
+# Reconhecimento de padrões
+
 1. Abrindo uma imagem:
+
    ![](.docs/2022-10-06-22-39-40.png)
    ![](.docs/2022-10-06-22-41-23.png)
    ![](.docs/2022-10-06-22-40-52.png)
 
 2. Selecionando uma ROI:
+
    ![](.docs/2022-10-06-22-42-40.png)
 
 3. Ao selecionar a ROI, ela é exibida em uma janela separada:
+
    ![](.docs/2022-10-06-22-44-43.png)
 
 4. Salvando a ROI:
+
    ![](.docs/2022-10-06-22-46-09.png)
    ![](.docs/2022-10-06-22-46-30.png)
 
 5. Encontrando a ROI na imagem:
+
    ![](.docs/2022-10-06-22-48-53.png)
    ![](.docs/2022-10-06-22-49-40.png)
 
 6. Resultado:
+
    ![](.docs/2022-10-06-22-50-03.png)
 
+# Classificadores
+
+1. Ir ao menu KL Classification e utilizar uma das opções disponíveis:
+
+   ![](.docs/2022-11-27-13-03-52.png)
+
+2. Será exibido o resultado ou as métricas em um popup:
+
+   ![](.docs/shallow-bin.png)
+
 # Modelos CNNs
+
 Os modelos prontos das CNNs estão no seguinte link: [Modelo](https://drive.google.com/drive/folders/1X6X4ciYiwmx4Vof2kJQJXqHykD4IjeB0?usp=share_link).
 Por ser muito grande não foi possivel armazer no GIT o modelo.

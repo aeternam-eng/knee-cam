@@ -23,6 +23,7 @@ class KLClassificationMenu(tk.Menu):
         self.add_command(label='Run shallow model in test set', command=lambda: self._run_shallow_model())
         self.add_command(label='Run CNN model in test set', command=lambda: self._run_cnn_model())
 
+    # Executa e avalia o modelo raso
     def _run_shallow_model(self):
         bin_labels = [0,1]
         multi_labels = [0,1,2,3,4]
@@ -42,6 +43,7 @@ class KLClassificationMenu(tk.Menu):
         tk.messagebox.showinfo(f"BIN Shallow ({bin_shallow_result['time']} s)", f"{bin_shallow_result['report']}\n Confusion matrix: \n{bin_shallow_result['confusion']}")
         tk.messagebox.showinfo(f"MC Shallow ({multi_shallow_result['time']} s)", f"{multi_shallow_result['report']}\n Confusion matrix: \n{multi_shallow_result['confusion']}")
 
+    # Executa e avalia o modelo CNN
     def _run_cnn_model(self):
         bin_labels = [0,1]
         multi_labels = [0,1,2,3,4]
