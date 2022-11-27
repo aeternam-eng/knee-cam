@@ -37,7 +37,7 @@ Após isso, para executar o programa, rodar os comandos (considerando que o dire
 # Libs utilizadas
 
 - Tkinter - Biblioteca de GUI nativa do Python, com exibições nativas para cada sistema.
-- OpenCV - Para uso do algoritmo de correlação cruzada.
+- OpenCV - Para uso do algoritmo de correlação cruzada e processamento de imagem.
 - PIL - Manipulação de arquivos de imagem.
 - numpy - Manipulação de arrays (conversão de imagens do PIL em imagens do OpenCV).
 - tensorflow - Treinamento da CNN
