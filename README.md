@@ -101,3 +101,17 @@ Assim, será exibida a ROI sobreposta como um retângulo sobre a imagem principa
 
 Os modelos prontos das CNNs estão no seguinte link: [Modelo](https://drive.google.com/drive/folders/1X6X4ciYiwmx4Vof2kJQJXqHykD4IjeB0?usp=share_link).
 Por ser muito grande não foi possivel armazer no GIT o modelo.
+
+Colocar os modelos com os seguintes nomes dentro da pasta src
+CNN.h5
+CNNBynary.h5
+shallow_bin.sav
+shallow_multi.sav
+
+O dataset também não pode ser colocado no repositório. Incluí-lo em uma pasta 'data', dentro da pasta 'src'
+A estrutura será:
+
+src/data/kneeKL224/auto_test
+src/data/kneeKL224/test
+src/data/kneeKL224/train
+src/data/kneeKL224/val
